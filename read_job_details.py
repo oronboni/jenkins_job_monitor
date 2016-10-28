@@ -27,9 +27,9 @@ def print_options(options):
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--build_number", help="Jenkins build number", default="25")
-    parser.add_argument("-j", "--jenkins_url", help="Jenkins URL ", default="http://localhost:8080")
-    parser.add_argument("-s", "--job_name", help="Job name ", default="Warnings")
+    parser.add_argument("-d", "--build_number", help="Jenkins build number", default="3")
+    parser.add_argument("-j", "--jenkins_url", help="Jenkins URL ", default="http://146.148.12.86:8080")
+    parser.add_argument("-s", "--job_name", help="Job name ", default="CI%20build%20-%20Calc%20(Taboola)")
 
     options = parser.parse_args()
     print_options(options)

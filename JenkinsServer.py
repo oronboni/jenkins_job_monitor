@@ -37,7 +37,7 @@ class JenkinsServer(LoggerClass):
         jenkins_job_details_url = self._JENKINS_DETAILES_FOR_JOB_URL % {"jenkins_url": self._jenkins_url, "job_name": self.job_name, "job_num": self.build_number}
         res = urllib2.urlopen(jenkins_job_details_url).read()
 
-        userName = minidom.parseString(res).getElementsByTagName("userName")[0].childNodes[0].nodeValue
+        userName = minidom.parseString(res).getElementsByTagName("shortDescription")[0].childNodes[0].nodeValue
         result = minidom.parseString(res).getElementsByTagName("result")[0].childNodes[0].nodeValue
         estimatedDuration = minidom.parseString(res).getElementsByTagName("estimatedDuration")[0].childNodes[0].nodeValue
 
