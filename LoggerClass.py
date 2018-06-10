@@ -11,10 +11,10 @@ Description         :  Job reader - logger creation
 
 """
 
+
 import logging
 import os
 import datetime
-import time
 
 
 class SingletonType(type):
@@ -28,6 +28,7 @@ class SingletonType(type):
 
 class MyLogger(object):
     _logger = None
+    __metaclass__ = SingletonType
 
     def __init__(self):
         self._logger = logging.getLogger("crumbs")
@@ -39,6 +40,7 @@ class MyLogger(object):
 
         if not os.path.isdir(dirname):
             os.mkdir(dirname)
+
         fileHandler = logging.FileHandler(dirname + "/log_" + now.strftime("%Y-%m-%d") + ".log")
 
         streamHandler = logging.StreamHandler()
@@ -51,5 +53,5 @@ class MyLogger(object):
 
         print("Generate new instance")
 
-    def get_logger(self):
+    def get_logger(self, *args):
         return self._logger

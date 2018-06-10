@@ -11,40 +11,36 @@ Description         :  Read Jenkins job parameters
 
 """
 
-#############################
-# Python built-in imports
-#############################
 import argparse
+from MyLogger import MyLogger
 from QueueManager import QueueManager
-from LoggerClass import LoggerClass
 
 
 def print_options(options):
     print "build_number: %s" % options.build_number
-    print "Job name: %s" % options.job_name
     print "jenkins_url: %s" % options.jenkins_url
+    print "job_name: %s" % options.job_name
 
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--build_number", help="Jenkins build number", default="3")
-    parser.add_argument("-j", "--jenkins_url", help="Jenkins URL ", default="http://146.148.12.86:8080")
-    parser.add_argument("-s", "--job_name", help="Job name ", default="CI%20build%20-%20Calc%20(Taboola)")
+    parser.add_argument("-d", "--build_number", help="Jenkins build number", default="1")
+    parser.add_argument("-j", "--jenkins_url", help="Jenkins URL", default="http://localhost:8080")
+    parser.add_argument("-s", "--job_name", help="Job name", default="oron")
 
-    options = parser.parse_args()
+    options=parser.parse_args()
     print_options(options)
     return vars(options)
 
 
 def main():
-    print '**** Read jobs parameters start'
-    options = get_args()
+    print ' *** start jenkins job script ***'
+    option = get_args()
+    logger = MyLogger.__call__().get_logger()
+    logger.info("Start logger")
 
-    LoggerClass.init_logger()
-
-    queue_management_state = QueueManager(**options)
+    queue_management_state = QueueManager(option["build_number"],option["jenkins_url"],option["job_name"])
     queue_management_state.run()
 
 if __name__ == "__main__":
     main()
-
